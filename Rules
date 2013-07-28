@@ -1,0 +1,5 @@
+Jeu de la vie :
+
+	Si une cellule a < 2 voisines ou > 3 voisines, elle meurt
+	Si une cellule a == 3 voisines, elle naît
+	Si une cellule a == 2 voisines, elle ne change pas
