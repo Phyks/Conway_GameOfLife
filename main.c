@@ -7,8 +7,6 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-//TODO !!!!
-// Inverser X et Y cf. Le retour
 int kbhit(void)
 {
   struct termios oldt, newt;
@@ -44,22 +42,22 @@ int main(int argc, char **argv)
 	// o (=old), n(=new) for switching between the two matrices X*Y
 	//Nbre_iterations = number of iterations
 	int **m[2];
-	int i, j, k;
+	int i, j;
 	int count = 0, density = 50, o = 0, n, Y, X, nbre_iterations=0;
 	int carac = 64; //@
-	
+    
 	initscr();
 	getmaxyx(stdscr, X, Y);
 	
 	Y -= 1;
 	X -= 1;
-	
+
 	// If there's not enough args, give a short How-To
-	if(argc < 1)
+	if(argc < 2)
 	{
-		printw("Usage : %s [density in %] \n", argv[0]);
-		refresh();
-		return 0;
+        endwin();
+		printf("Usage : %s [density in %] \n", argv[0]);
+        return 0;
 	}
 
 	// Put the 2nd (if exists) into density
@@ -92,9 +90,10 @@ int main(int argc, char **argv)
 		for(j = 0; j < Y; j++)
 		{
 			// We put 1 if the number token is > density
-			m[0][i][j] = (rand() % 100 > density) ? 1 : 0;
+			m[0][i][j] = ((rand() % 100) > density) ? 1 : 0;
 		}
 	}
+
 	// Clear the screen and print the matrice 0
 	clear();
 
@@ -147,7 +146,7 @@ int main(int argc, char **argv)
 		nbre_iterations++;
 		printw("%d", nbre_iterations);
 		refresh();
-		
+	
 		usleep(100000);
 		
 		//Exchange n and o -> New 'old' is old 'new' :)
